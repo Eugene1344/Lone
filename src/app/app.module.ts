@@ -9,6 +9,7 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../environments/environment";
 import {HttpClientModule} from "@angular/common/http";
 import { EffectsModule } from '@ngrx/effects';
+import {TopbarModule} from "./shared/modules/topbar/topbar.module";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { EffectsModule } from '@ngrx/effects';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    TopbarModule,
     HttpClientModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({

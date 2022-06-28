@@ -5,10 +5,15 @@ import {CurrentUserInterface} from "../../shared/types/currentUser.interface";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {AuthResonseInterface} from "../types/authResonse.interface";
+import {LoginRequestInterface} from "../types/loginRequest.interface";
 
 @Injectable()
 export class AuthService {
   constructor(private http: HttpClient) {
+  }
+
+  getUser(response: AuthResonseInterface): CurrentUserInterface {
+    return response.user
   }
 
   register(data: RegisterRequestInterface): Observable<CurrentUserInterface> {
@@ -16,7 +21,14 @@ export class AuthService {
 
       return this.http
         .post<AuthResonseInterface>(url, data)
-        .pipe(
-          map((response: AuthResonseInterface) => response.user))
+        .pipe(map(this.getUser))
+  }
+
+  login(data: LoginRequestInterface): Observable<CurrentUserInterface> {
+    const url  = `${environment.apiUrl}/users/login`;
+
+    return this.http
+      .post<AuthResonseInterface>(url,data)
+      .pipe(map(this.getUser))
   }
 }

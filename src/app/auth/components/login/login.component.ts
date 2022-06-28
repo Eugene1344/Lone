@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
-import {registerAction} from "../../store/actions/register.action";
 import {Observable} from "rxjs";
 import {isSubmittingSelector, validationErrorsSelectors} from "../../store/selectors";
 import {AuthService} from "../../services/auth.service";
-import {CurrentUserInterface} from "../../../shared/types/currentUser.interface";
-import {RegisterRequestInterface} from "../../types/registerRequest.interface";
 import {BackendErrorInterface} from "../../../shared/types/backendError.interface";
+import {LoginRequestInterface} from "../../types/loginRequest.interface";
+import {loginAction} from "../../store/actions/login.action";
 
 @Component({
-  selector: 'lone-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'lone-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class LoginComponent implements OnInit {
   form: FormGroup
   isSubmitting$: Observable<boolean>
   backendErrors$: Observable<BackendErrorInterface | null>
@@ -44,9 +43,9 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const request: RegisterRequestInterface = {
+    const request: LoginRequestInterface = {
       user: this.form.value
     }
-    this.store.dispatch(registerAction({request}));
+    this.store.dispatch(loginAction({request}));
   }
 }
